@@ -11,10 +11,10 @@ import br.com.gagjunior.ex.spring.entities.User;
 @RequestMapping(value = "/users")
 public class UserController {
 
-    @GetMapping
-    public ResponseEntity<User> findAll() {
-	User u = new User(1L, "Gilberto", "fulano@gmail.com", "998756544", null);
-	return ResponseEntity.ok(u);
-    }
+//    @GetMapping
+//    public ResponseEntity<User> findAll() {
+//	User u = new User(1L, "Gilberto", "fulano@gmail.com", "998756544", null);
+//	return ResponseEntity.ok(u);
+//    }
 
 }
