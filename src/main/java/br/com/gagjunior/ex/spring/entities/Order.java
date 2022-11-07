@@ -14,6 +14,8 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import br.com.gagjunior.ex.spring.entities.enums.OrderStatus;
+
 @Entity
 @Table(name = "tb_order")
 public class Order implements Serializable {
@@ -30,15 +32,18 @@ public class Order implements Serializable {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private User client;
+    
+    private Integer orderStatus;
 
     public Order() {
 
     }
 
-    public Order(Long id, Instant moment, User client) {
+    public Order(Long id, Instant moment, User client, OrderStatus orderStatus) {
 	this.id = id;
 	this.moment = moment;
 	this.client = client;
+	setOrderStatus(orderStatus);
     }
 
     public Long getId() {
@@ -64,6 +69,20 @@ public class Order implements Serializable {
     public void setClient(User client) {
 	this.client = client;
     }
+    
+    public OrderStatus getOrderStatus() {
+        try {
+	    return OrderStatus.valueOf(orderStatus);
+	} catch (IllegalAccessException e) {
+	    throw new IllegalArgumentException(e.getMessage());
+	}
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+	if (orderStatus != null) {
+	    this.orderStatus = orderStatus.getCode();    
+	}
+    }
 
     @Override
     public int hashCode() {
@@ -81,5 +100,6 @@ public class Order implements Serializable {
 	Order other = (Order) obj;
 	return Objects.equals(id, other.id);
     }
+
 
 }
