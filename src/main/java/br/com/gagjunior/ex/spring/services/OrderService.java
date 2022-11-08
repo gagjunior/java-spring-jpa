@@ -12,13 +12,13 @@ import br.com.gagjunior.ex.spring.repositories.OrderRepository;
 public class OrderService {
 
     @Autowired
-    private OrderRepository OrderRepository;
+    private OrderRepository orderRepository;
 
     public List<Order> findAll() {
-	return OrderRepository.findAll();
+	return orderRepository.findAll();
     }
     
     public Order findById(Long id) {
-	return OrderRepository.findById(id).orElse(null);
+	return orderRepository.findById(id).orElse(null);
     }
 }
