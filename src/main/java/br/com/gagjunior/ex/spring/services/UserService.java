@@ -1,12 +1,11 @@
 package br.com.gagjunior.ex.spring.services;
 
-import java.util.List;
-
+import br.com.gagjunior.ex.spring.entities.User;
+import br.com.gagjunior.ex.spring.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.gagjunior.ex.spring.entities.User;
-import br.com.gagjunior.ex.spring.repositories.UserRepository;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -15,10 +14,17 @@ public class UserService {
     private UserRepository userRepository;
 
     public List<User> findAll() {
-	return userRepository.findAll();
+        return userRepository.findAll();
     }
-    
+
     public User findById(Long id) {
-	return userRepository.findById(id).orElse(null);
+        return userRepository.findById(id).orElse(null);
+    }
+
+    public User insertUser(User user) {
+        if (user == null) {
+            return null;
+        }
+        return userRepository.save(user);
     }
 }
