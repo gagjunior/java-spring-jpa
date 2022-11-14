@@ -1,5 +1,6 @@
 package br.com.gagjunior.ex.spring.controllers.exceptions;
 
+import br.com.gagjunior.ex.spring.services.exceptions.DataBaseException;
 import br.com.gagjunior.ex.spring.services.exceptions.ResourceNotFoudException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,14 @@ public class ResourceExceptionHandler {
     public ResponseEntity<StandardError> resourceNotFound(ResourceNotFoudException error, HttpServletRequest request) {
         String errorMsg = "Resource not found";
         HttpStatus status = HttpStatus.NOT_FOUND;
+        StandardError standardError = new StandardError(Instant.now(), status.value(), errorMsg, error.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(status).body(standardError);
+    }
+
+    @ExceptionHandler(DataBaseException.class)
+    public ResponseEntity<StandardError> dataBaseError(DataBaseException error, HttpServletRequest request) {
+        String errorMsg = "Data base error";
+        HttpStatus status = HttpStatus.BAD_REQUEST;
         StandardError standardError = new StandardError(Instant.now(), status.value(), errorMsg, error.getMessage(), request.getRequestURI());
         return ResponseEntity.status(status).body(standardError);
     }
