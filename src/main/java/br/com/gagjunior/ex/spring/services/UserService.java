@@ -2,6 +2,7 @@ package br.com.gagjunior.ex.spring.services;
 
 import br.com.gagjunior.ex.spring.entities.User;
 import br.com.gagjunior.ex.spring.repositories.UserRepository;
+import br.com.gagjunior.ex.spring.services.exceptions.ResourceNotFoudException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ public class UserService {
     }
 
     public User findById(Long id) {
-        return userRepository.findById(id).orElse(null);
+        return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoudException(id));
     }
 
     public User insertUser(User user) {
